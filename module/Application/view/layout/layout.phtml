@@ -1,55 +1,561 @@
-<?php echo $this->doctype(); ?>
+<?php // echo $this->doctype(); ?>
 
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php  echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?php echo $this->headMeta()
+        <?php  echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
         <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+        <?php  echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/custom.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/themes/darkblue.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/layout.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/css/plugins.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/css/components.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/uniform/css/uniform.default.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/bootstrap/css/bootstrap.min.css')                        
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/simple-line-icons/simple-line-icons.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/font-awesome/css/font-awesome.min.css')
+                        ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all')
+        ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery.min.js'))
-            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        <?php  echo $this->headScript()
+            
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/js.cookie.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery.blockui.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/uniform/jquery.uniform.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')
+            ->prependFile($this->basePath() . '/assets/pages/scripts/form-samples.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/layout/scripts/layout.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/layout/scripts/demo.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/global/scripts/quick-sidebar.min.js')
+            ->prependFile($this->basePath() . '/assets/global/scripts/app.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery.min.js')
         ; ?>
-
     </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="<?php // echo $this->url('admin')?>" style="color: white">
+                        <h4><?php // echo $this->translate("Plantões")?></h4> 
+                    </a>
+                    <div class="menu-toggler sidebar-toggler"> </div>
                 </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- BEGIN NOTIFICATION DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-bell"></i>
+                                <span class="badge badge-default"> 7 </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3>
+                                        <span class="bold">12 pending</span> notifications</h3>
+                                    <a href="page_user_profile_1.html">view all</a>
+                                </li>
+                                <li>
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><ul class="dropdown-menu-list scroller" style="height: 250px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">just now</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-success">
+                                                        <i class="fa fa-plus"></i>
+                                                    </span> New user registered. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">3 mins</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-danger">
+                                                        <i class="fa fa-bolt"></i>
+                                                    </span> Server #12 overloaded. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">10 mins</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-warning">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </span> Server #2 not responding. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">14 hrs</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-info">
+                                                        <i class="fa fa-bullhorn"></i>
+                                                    </span> Application error. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">2 days</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-danger">
+                                                        <i class="fa fa-bolt"></i>
+                                                    </span> Database overloaded 68%. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">3 days</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-danger">
+                                                        <i class="fa fa-bolt"></i>
+                                                    </span> A user IP blocked. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">4 days</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-warning">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </span> Storage Server #4 not responding dfdfdfd. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">5 days</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-info">
+                                                        <i class="fa fa-bullhorn"></i>
+                                                    </span> System Error. </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="time">9 days</span>
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-danger">
+                                                        <i class="fa fa-bolt"></i>
+                                                    </span> Storage server failed. </span>
+                                            </a>
+                                        </li>
+                                    </ul><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(99, 114, 131);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END NOTIFICATION DROPDOWN -->
+                        <!-- BEGIN INBOX DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-envelope-open"></i>
+                                <span class="badge badge-default"> 4 </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3>You have
+                                        <span class="bold">7 New</span> Messages</h3>
+                                    <a href="app_inbox.html">view all</a>
+                                </li>
+                                <li>
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 275px;"><ul class="dropdown-menu-list scroller" style="height: 275px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
+                                        <li>
+                                            <a href="#">
+                                                <span class="photo">
+                                                    <img src="../assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> Lisa Wong </span>
+                                                    <span class="time">Just Now </span>
+                                                </span>
+                                                <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="photo">
+                                                    <img src="../assets/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> Richard Doe </span>
+                                                    <span class="time">16 mins </span>
+                                                </span>
+                                                <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="photo">
+                                                    <img src="../assets/layouts/layout3/img/avatar1.jpg" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> Bob Nilson </span>
+                                                    <span class="time">2 hrs </span>
+                                                </span>
+                                                <span class="message"> Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="photo">
+                                                    <img src="../assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> Lisa Wong </span>
+                                                    <span class="time">40 mins </span>
+                                                </span>
+                                                <span class="message"> Vivamus sed auctor 40% nibh congue nibh... </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="photo">
+                                                    <img src="../assets/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                <span class="subject">
+                                                    <span class="from"> Richard Doe </span>
+                                                    <span class="time">46 mins </span>
+                                                </span>
+                                                <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                            </a>
+                                        </li>
+                                    </ul><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(99, 114, 131);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END INBOX DROPDOWN -->
+                        <!-- BEGIN TODO DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-calendar"></i>
+                                <span class="badge badge-default"> 3 </span>
+                            </a>
+                            <ul class="dropdown-menu extended tasks">
+                                <li class="external">
+                                    <h3>You have
+                                        <span class="bold">12 pending</span> tasks</h3>
+                                    <a href="app_todo.html">view all</a>
+                                </li>
+                                <li>
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 275px;"><ul class="dropdown-menu-list scroller" style="height: 275px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New release v1.2 </span>
+                                                    <span class="percent">30%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">40% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Application deployment</span>
+                                                    <span class="percent">65%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">65% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile app release</span>
+                                                    <span class="percent">98%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">98% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Database migration</span>
+                                                    <span class="percent">10%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">10% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Web server upgrade</span>
+                                                    <span class="percent">58%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">58% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile development</span>
+                                                    <span class="percent">85%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">85% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New UI release</span>
+                                                    <span class="percent">38%</span>
+                                                </span>
+                                                <span class="progress progress-striped">
+                                                    <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">38% Complete</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(99, 114, 131);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END TODO DROPDOWN -->
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg">
+                                <span class="username username-hide-on-mobile"> <?php // echo $this->identity()->getNomeDisplay();?> </span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="page_user_profile_1.html">
+                                        <i class="icon-user"></i> My Profile </a>
+                                </li>
+                                <li>
+                                    <a href="app_calendar.html">
+                                        <i class="icon-calendar"></i> My Calendar </a>
+                                </li>
+                                <li>
+                                    <a href="app_inbox.html">
+                                        <i class="icon-envelope-open"></i> My Inbox
+                                        <span class="badge badge-danger"> 3 </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="app_todo.html">
+                                        <i class="icon-rocket"></i> My Tasks
+                                        <span class="badge badge-success"> 7 </span>
+                                    </a>
+                                </li>
+                                <li class="divider"> </li>
+                                <li>
+                                    <a href="page_user_lock_1.html">
+                                        <i class="icon-lock"></i> Lock Screen </a>
+                                </li>
+                                <li>
+                                    <a href="<?php // echo $this->url('admin/logout')?>">
+                                        <i class="icon-key"></i> <?php // echo $this->translate("Sair")?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER LOGIN DROPDOWN -->
+                        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
             </div>
-        </nav>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                        <li class="sidebar-toggler-wrapper hide">
+                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                            <div class="sidebar-toggler"> </div>
+                            <!-- END SIDEBAR TOGGLER BUTTON -->
+                        </li>
+                        <li class="sidebar-search-wrapper">
+                            <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                            <form class="sidebar-search  " action="page_general_search_3.html" method="POST">
+                                <a href="javascript:;" class="remove">
+                                    <i class="icon-close"></i>
+                                </a>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:;" class="btn submit">
+                                            <i class="icon-magnifier"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </form>
+                            <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Dashboard</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                            	<li class="nav-item start active open">
+                                    <a href="<?php // echo $this->url('admin')?>" class="nav-link ">
+                                        <i class="fa fa-home"></i>
+                                        <span class="title"><?php echo $this->translate("Home")?></span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class=" icon-calendar"></i>
+                                <span class="title"><?php  echo $this->translate('Agendamento')?></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/group')?>" class="nav-link ">
+                                        <span class="title"><?php echo $this->translate("Criar")?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class=" icon-wrench"></i>
+                                <span class="title"><?php echo $this->translate('Despesas')?></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/subgroup')?>" class="nav-link ">
+                                        <span class="title"><?php  echo $this->translate("Listar")?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/subgroup',array('action'=>'create'))?>" class="nav-link ">
+                                        <span class="title"><?php  echo $this->translate("Criar despesas")?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class=" icon-user"></i>
+                                <span class="title"><?php  echo $this->translate('Caixa')?></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/user')?>" class="nav-link ">
+                                        <span class="title"><?php  echo $this->translate("Listar")?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/user',array('action'=>'create'))?>" class="nav-link ">
+                                        <span class="title"><?php // echo $this->translate("Criar")?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class=" icon-wrench"></i>
+                                <span class="title"><?php // echo $this->translate('Plantões')?></span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/duty')?>" class="nav-link ">
+                                        <span class="title"><?php // echo $this->translate("Listar")?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/duty',array('action'=>'pass'))?>" class="nav-link ">
+                                        <span class="title"><?php // echo $this->translate("Passar")?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php // echo $this->url('admin/duty',array('action'=>'change'))?>" class="nav-link ">
+                                        <span class="title"><?php // echo $this->translate("Trocar")?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                    <!-- END SIDEBAR MENU -->
+                </div>
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height:1072px">
+                	<?php echo $this->content; ?>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+	
+		<div class="jqvmap-label"></div><div class="jqvmap-label"></div><div class="jqvmap-label"></div><div class="jqvmap-label"></div><div class="jqvmap-label"></div><div class="daterangepicker dropdown-menu opensleft show-calendar" style="top: 82px; right: 20px; left: auto;"><div class="calendar left"><div class="calendar-date"><table class="table-condensed"><thead><tr><th></th><th class="prev available"><i class="fa fa-angle-left"></i></th><th colspan="5" class="month">December 2015</th><th></th></tr><tr><th class="week">W</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr></thead><tbody><tr><td class="week">49</td><td class="off disabled" data-title="r0c0">30</td><td class="off disabled" data-title="r0c1">1</td><td class="off disabled" data-title="r0c2">2</td><td class="off disabled" data-title="r0c3">3</td><td class="off disabled" data-title="r0c4">4</td><td class="off disabled" data-title="r0c5">5</td><td class="off disabled" data-title="r0c6">6</td></tr><tr><td class="week">50</td><td class="off disabled" data-title="r1c0">7</td><td class="off disabled" data-title="r1c1">8</td><td class="off disabled" data-title="r1c2">9</td><td class="off disabled" data-title="r1c3">10</td><td class="off disabled" data-title="r1c4">11</td><td class="off disabled" data-title="r1c5">12</td><td class="off disabled" data-title="r1c6">13</td></tr><tr><td class="week">51</td><td class="off disabled" data-title="r2c0">14</td><td class="off disabled" data-title="r2c1">15</td><td class="off disabled" data-title="r2c2">16</td><td class="off disabled" data-title="r2c3">17</td><td class="off disabled" data-title="r2c4">18</td><td class="off disabled" data-title="r2c5">19</td><td class="off disabled" data-title="r2c6">20</td></tr><tr><td class="week">52</td><td class="off disabled" data-title="r3c0">21</td><td class="off disabled" data-title="r3c1">22</td><td class="off disabled" data-title="r3c2">23</td><td class="off disabled" data-title="r3c3">24</td><td class="off disabled" data-title="r3c4">25</td><td class="off disabled" data-title="r3c5">26</td><td class="off disabled" data-title="r3c6">27</td></tr><tr><td class="week">1</td><td class="off disabled" data-title="r4c0">28</td><td class="off disabled" data-title="r4c1">29</td><td class="off disabled" data-title="r4c2">30</td><td class="off disabled" data-title="r4c3">31</td><td class="off disabled" data-title="r4c4">1</td><td class="off disabled" data-title="r4c5">2</td><td class="off disabled" data-title="r4c6">3</td></tr><tr><td class="week">2</td><td class="off disabled" data-title="r5c0">4</td><td class="off disabled" data-title="r5c1">5</td><td class="off disabled" data-title="r5c2">6</td><td class="off disabled" data-title="r5c3">7</td><td class="off disabled" data-title="r5c4">8</td><td class="off disabled" data-title="r5c5">9</td><td class="off disabled" data-title="r5c6">10</td></tr></tbody></table></div></div><div class="calendar right"><div class="calendar-date"><table class="table-condensed"><thead><tr><th></th><th class="prev available"><i class="fa fa-angle-left"></i></th><th colspan="5" class="month">January 2016</th><th></th></tr><tr><th class="week">W</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr></thead><tbody><tr><td class="week">1</td><td class="off disabled" data-title="r0c0">28</td><td class="off disabled" data-title="r0c1">29</td><td class="off disabled" data-title="r0c2">30</td><td class="off disabled" data-title="r0c3">31</td><td class="off disabled" data-title="r0c4">1</td><td class="off disabled" data-title="r0c5">2</td><td class="off disabled" data-title="r0c6">3</td></tr><tr><td class="week">2</td><td class="off disabled" data-title="r1c0">4</td><td class="off disabled" data-title="r1c1">5</td><td class="off disabled" data-title="r1c2">6</td><td class="off disabled" data-title="r1c3">7</td><td class="off disabled" data-title="r1c4">8</td><td class="off disabled" data-title="r1c5">9</td><td class="off disabled" data-title="r1c6">10</td></tr><tr><td class="week">3</td><td class="off disabled" data-title="r2c0">11</td><td class="off disabled" data-title="r2c1">12</td><td class="off disabled" data-title="r2c2">13</td><td class="off disabled" data-title="r2c3">14</td><td class="off disabled" data-title="r2c4">15</td><td class="off disabled" data-title="r2c5">16</td><td class="off disabled" data-title="r2c6">17</td></tr><tr><td class="week">4</td><td class="off disabled" data-title="r3c0">18</td><td class="off disabled" data-title="r3c1">19</td><td class="off disabled" data-title="r3c2">20</td><td class="off disabled" data-title="r3c3">21</td><td class="off disabled" data-title="r3c4">22</td><td class="off disabled" data-title="r3c5">23</td><td class="off disabled" data-title="r3c6">24</td></tr><tr><td class="week">5</td><td class="off disabled" data-title="r4c0">25</td><td class="off disabled" data-title="r4c1">26</td><td class="off disabled" data-title="r4c2">27</td><td class="off disabled" data-title="r4c3">28</td><td class="off disabled" data-title="r4c4">29</td><td class="off disabled" data-title="r4c5">30</td><td class="off disabled" data-title="r4c6">31</td></tr><tr><td class="week">6</td><td class="off disabled" data-title="r5c0">1</td><td class="off disabled" data-title="r5c1">2</td><td class="off disabled" data-title="r5c2">3</td><td class="off disabled" data-title="r5c3">4</td><td class="off disabled" data-title="r5c4">5</td><td class="off disabled" data-title="r5c5">6</td><td class="off disabled" data-title="r5c6">7</td></tr></tbody></table></div></div><div class="ranges"><ul><li class="active">Custom Range</li></ul><div class="range_inputs"><div class="daterangepicker_start_input"><label for="daterangepicker_start">From</label><input class="input-mini" type="text" name="daterangepicker_start" value=""></div><div class="daterangepicker_end_input"><label for="daterangepicker_end">To</label><input class="input-mini" type="text" name="daterangepicker_end" value=""></div><button class="applyBtn btn btn-sm blue">Apply</button>&nbsp;<button class="cancelBtn btn btn-sm default">Cancel</button></div></div></div></body>
+            
+         <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> 
+            	<a href="http://www.pvmktg.com.br/">Página Viva</a>
+            </div>
+            <div class="scroll-to-top" style="display: none;">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <?php  echo $this->inlineScript() ?>
     </body>
 </html>

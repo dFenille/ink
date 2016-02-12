@@ -15,145 +15,176 @@ class Agenda
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_agendamento", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idAgendamento;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomeAgendamento", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nome_agendamento", type="string", length=45, nullable=false)
      */
-    private $nomeagendamento;
+    private $nomeAgendamento;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data", type="datetime", nullable=false)
+     * @ORM\Column(name="data_inicial", type="datetime", nullable=false)
      */
-    private $data = 'CURRENT_TIMESTAMP';
+    private $dataInicial;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_final", type="datetime", nullable=false)
+     */
+    private $dataFinal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome_cliente", type="string", length=60, nullable=false)
+     */
+    private $nomeCliente;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idUsuario", type="integer", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $idusuario;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="t_delete", type="integer", nullable=false)
-     */
-    private $tDelete = '1';
+    private $status = '1';
 
 
 
     /**
-     * Get id
+     * Get idAgendamento
      *
      * @return integer
      */
-    public function getId()
+    public function getIdAgendamento()
     {
-        return $this->id;
+        return $this->idAgendamento;
     }
 
     /**
-     * Set nomeagendamento
+     * Set nomeAgendamento
      *
-     * @param string $nomeagendamento
+     * @param string $nomeAgendamento
      *
      * @return Agenda
      */
-    public function setNomeagendamento($nomeagendamento)
+    public function setNomeAgendamento($nomeAgendamento)
     {
-        $this->nomeagendamento = $nomeagendamento;
+        $this->nomeAgendamento = $nomeAgendamento;
 
         return $this;
     }
 
     /**
-     * Get nomeagendamento
+     * Get nomeAgendamento
      *
      * @return string
      */
-    public function getNomeagendamento()
+    public function getNomeAgendamento()
     {
-        return $this->nomeagendamento;
+        return $this->nomeAgendamento;
     }
 
     /**
-     * Set data
+     * Set dataInicial
      *
-     * @param \DateTime $data
+     * @param \DateTime $dataInicial
      *
      * @return Agenda
      */
-    public function setData($data)
+    public function setDataInicial($dataInicial)
     {
-        $this->data = $data;
+        $this->dataInicial = $dataInicial;
 
         return $this;
     }
 
     /**
-     * Get data
+     * Get dataInicial
      *
      * @return \DateTime
      */
-    public function getData()
+    public function getDataInicial()
     {
-        return $this->data;
+        return $this->dataInicial;
     }
 
     /**
-     * Set idusuario
+     * Set dataFinal
      *
-     * @param integer $idusuario
+     * @param \DateTime $dataFinal
      *
      * @return Agenda
      */
-    public function setIdusuario($idusuario)
+    public function setDataFinal($dataFinal)
     {
-        $this->idusuario = $idusuario;
+        $this->dataFinal = $dataFinal;
 
         return $this;
     }
 
     /**
-     * Get idusuario
+     * Get dataFinal
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getIdusuario()
+    public function getDataFinal()
     {
-        return $this->idusuario;
+        return $this->dataFinal;
     }
 
     /**
-     * Set tDelete
+     * Set nomeCliente
      *
-     * @param integer $tDelete
+     * @param string $nomeCliente
      *
      * @return Agenda
      */
-    public function setTDelete($tDelete)
+    public function setNomeCliente($nomeCliente)
     {
-        $this->tDelete = $tDelete;
+        $this->nomeCliente = $nomeCliente;
 
         return $this;
     }
 
     /**
-     * Get tDelete
+     * Get nomeCliente
+     *
+     * @return string
+     */
+    public function getNomeCliente()
+    {
+        return $this->nomeCliente;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Agenda
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
      *
      * @return integer
      */
-    public function getTDelete()
+    public function getStatus()
     {
-        return $this->tDelete;
+        return $this->status;
     }
 }

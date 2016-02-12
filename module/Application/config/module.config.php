@@ -52,6 +52,15 @@ return array(
                     ),
                 ),
             ),
+            'agendamento' => array(
+                'type'      => 'Literal',
+                'options'   => array(
+                    'route'     => '/agendamento[/:action[/:id]]',
+                    'defaults'  => array(
+                        'controller' =>
+                    )
+                )
+            )
         ),
     ),
     'service_manager' => array(

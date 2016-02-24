@@ -22,13 +22,6 @@ class Agenda
     private $idAgendamento;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nome_agendamento", type="string", length=45, nullable=false)
-     */
-    private $nomeAgendamento;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_inicial", type="datetime", nullable=false)
@@ -66,30 +59,6 @@ class Agenda
     public function getIdAgendamento()
     {
         return $this->idAgendamento;
-    }
-
-    /**
-     * Set nomeAgendamento
-     *
-     * @param string $nomeAgendamento
-     *
-     * @return Agenda
-     */
-    public function setNomeAgendamento($nomeAgendamento)
-    {
-        $this->nomeAgendamento = $nomeAgendamento;
-
-        return $this;
-    }
-
-    /**
-     * Get nomeAgendamento
-     *
-     * @return string
-     */
-    public function getNomeAgendamento()
-    {
-        return $this->nomeAgendamento;
     }
 
     /**

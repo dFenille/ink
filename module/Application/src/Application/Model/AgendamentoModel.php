@@ -6,6 +6,10 @@
  * and open the template in the editor.
  */
 namespace Application\Model;
+
+use Doctrine\ORM\EntityManager;
+use Application\Entity\Agenda;
+use Zend\Stdlib\DateTime;
 /**
  * Description of newPHPClass
  *
@@ -18,7 +22,7 @@ class AgendamentoModel {
      * @var \Doctrine\ORM\EntityManager
      *      */
     protected $entityManager;
-    public function __construct(\DoctrineORMModule\Options\EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager) {
         $this->entityManager = $entityManager;  
     }
     
@@ -31,13 +35,35 @@ class AgendamentoModel {
         return $this->agendamento;
     }
     
+    public function add($post){
+        $this->agendamento = new Agenda();
+        $this->agendamento->setNomeCliente($post['nomeCliente']);
+        $this->agendamento->setDataInicial(new DateTime($post['dataInicial']));
+        $this->agendamento->setDataFinal(new DateTime($post['dataFinal']));
+        $this->agendamento->setStatus(1);
+        
+        try{
+            $this->entityManager->persist($this->agendamento);
+            $this->entityManager->flush();
+                    
+        }  catch (\Exception $e){
+            throw new \Exception('Não foi possivel adicionar um novo agendamento.'.$e->getMessage());
+        }
+        return $this->agendamento;
+    }
+    
     public function getAgendamento(){
         
         return $this->agendamento;
     }
     
     public function getAgendamentos(){
-        $agendamentos = $this->entityManager->getRepository('Application\Entity\Agenda')->findBy(array('status' => 1));
+        $query = $this->entityManager->createQueryBuilder();
+        $query->select('agenda')
+                ->from('Application\Entity\Agenda', 'agenda')
+                ->where('agenda.status = 1');
+        
+        $agendamentos = $query->getQuery()->getArrayResult();
         
         return $agendamentos;
         

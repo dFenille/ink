@@ -1,4 +1,6 @@
 <link href="<?php echo $this->basePath('assets/global/plugins/fullcalendar/fullcalendar.min.css')?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')?>" rel="stylesheet" type="text/css" />
 
 <div class="row">
     <div class="col-md-12">
@@ -36,8 +38,158 @@
     </div>
 </div>
 
+<div id="modal" class="modal container fade" tabindex="-1">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Agendameto</h4>
+    </div>
+    <div id="modal-body">
+    </div>
+</div>
 
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="<?php echo $this->basePath('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')?>" type="text/javascript"></script>
+    <script src="<?php echo $this->basePath('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')?>" type="text/javascript"></script>
+    <script src="<?php echo $this->basePath('assets/global/scripts/app.min.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $this->basePath('assets/pages/scripts/ui-extended-modals.min.js')?> " type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 <script src="<?php echo $this->basePath('assets/global/plugins/moment.min.js');?>" type="text/javascript"></script>
 <script src="<?php echo $this->basePath('assets/global/plugins/fullcalendar/fullcalendar.min.js');?>" type="text/javascript"></script>
 <script src="<?php echo $this->basePath('assets/global/plugins/jquery-ui/jquery-ui.min.js');?>" type="text/javascript"></script>
-<script src="<?php echo$this->basePath('assets/apps/scripts/calendar.min.js')?>" type="text/javascript"></script>
+
+<script>
+var AppCalendar = function() {
+
+    return {
+        //main function to initiate the module
+        init: function() {
+            this.initCalendar();
+        },
+
+        initCalendar: function() {
+
+            if (!jQuery().fullCalendar) {
+                return;
+            }
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var h = {};
+
+            if (App.isRTL()) {
+                if ($('#calendar').parents(".portlet").width() <= 720) {
+                    $('#calendar').addClass("mobile");
+                    h = {
+                        right: 'title, prev, next',
+                        center: '',
+                        left: 'agendaDay, agendaWeek, month, today'
+                    };
+                } else {
+                    $('#calendar').removeClass("mobile");
+                    h = {
+                        right: 'title',
+                        center: '',
+                        left: 'agendaDay, agendaWeek, month, today, prev,next'
+                    };
+                }
+            } else {
+                if ($('#calendar').parents(".portlet").width() <= 720) {
+                    $('#calendar').addClass("mobile");
+                    h = {
+                        left: 'title, prev, next',
+                        center: '',
+                        right: 'today,month,agendaWeek,agendaDay'
+                    };
+                } else {
+                    $('#calendar').removeClass("mobile");
+                    h = {
+                        left: 'title',
+                        center: '',
+                        right: 'prev,next,today,month,agendaWeek,agendaDay'
+                    };
+                }
+            }
+
+            var initDrag = function(el) {
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim(el.text()) // use the element's text as the event title
+                };
+                // store the Event Object in the DOM element so we can get to it later
+                el.data('eventObject', eventObject);
+                // make the event draggable using jQuery UI
+                el.draggable({
+                    zIndex: 999,
+                    revert: true, // will cause the event to go back to its
+                    revertDuration: 0 //  original position after the drag
+                });
+            };
+            //predefined events
+
+            $('#calendar').fullCalendar('destroy'); // destroy the calendar
+            $('#calendar').fullCalendar({ //re-initialize the calendar
+                header: h,
+                defaultView: 'month', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
+                slotMinutes: 15,
+                drop: function(date, allDay) { // this function is called when something is dropped
+
+                    // retrieve the dropped element's stored Event Object
+                    var originalEventObject = $(this).data('eventObject');
+                    // we need to copy it, so that multiple events don't have a reference to the same object
+                    var copiedEventObject = $.extend({}, originalEventObject);
+
+                    // assign it the date that was reported
+                    copiedEventObject.start = date;
+                    copiedEventObject.allDay = allDay;
+                    copiedEventObject.className = $(this).attr("data-class");
+
+                    // render the event on the calendar
+                    // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                    // is the "remove after drop" checkbox checked?
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+                        $(this).remove();
+                    }
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+
+                    
+                   $.ajax({
+                            method: "POST",
+                            url: "<?php echo $this->url('agendamento',array('action'=> 'edit'))?>",
+                            data:'idAgendamento='+calEvent.id ,
+                            success: function(result){
+                                $('#modal-body').html(result);
+                            }
+                          })
+                   $('#modal').modal();
+
+                },
+                
+                 eventSources: [{
+                        url: '<?php echo $this->url('agendamento',array('action'=>'get-agendamentos'))?>',
+                        type: 'POST',
+                        error: function() {
+                            alert('there was an error while fetching events!');
+                        },
+                }]
+                
+            });
+
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {    
+   AppCalendar.init(); 
+});
+
+</script>

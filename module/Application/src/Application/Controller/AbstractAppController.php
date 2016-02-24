@@ -7,13 +7,13 @@
  */
 
 namespace Application\Controller;
-
+use \Zend\Mvc\Controller\AbstractActionController;
 /**
  * Description of AbstractAppController
  *
  * @author diego
  */
-class AbstractAppController extends \Zend\Mvc\Controller\AbstractActionController{
+class AbstractAppController extends AbstractActionController{
     
     /**
      * @var \Doctrine\ORM\EntityManager

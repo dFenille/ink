@@ -6,49 +6,82 @@
  * and open the template in the editor.
  */
 namespace Application\Controller;
+
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Application\Form\AgendamentoForm;
+use Application\Model\AgendamentoModel;
 /**
  * Description of newPHPClass
  *
  * @author diego
  */
-class AgendamentoController extends Application\Controller\AbstractAppController {
+class AgendamentoController extends AbstractAppController {
     
     public function indexAction() {
         
-        return new \Zend\View\Model\ViewModel();
+        return new ViewModel();
     }
     
     public function createAction(){
         $request = $this->getRequest();
-        
+        $form = new AgendamentoForm($this->getEntityManager());
+        $success = false;
         if($request->isPost()){
             $data = $request->getPost();
-            
-            
+            $form->setData($data);
+            if($form->isValid()){
+                $agendamentoModel = new AgendamentoModel($this->getEntityManager());
+                $agendamentoModel->add($data);
+                $success = true;
+            }
         }
-        return new \Zend\View\Model\ViewModel();
+        return new ViewModel(array('formAgendamento' => $form, 'success' => $success));
     }
     
-    public function updateAction(){
-        $request= $this->getRequest();
-        $id      = $this->params()->fromRoute('id',null);
-        if($request->isPost()){
-            $data = $request->getPost();
-            
-            
-        }
-        return new \Zend\View\Model\ViewModel();
-    }
-    
-    public function deleteAction(){
+    public function editAction(){
+        $success = false;
+        $request = $this->getRequest();
+        $valid = $this->params()->fromQuery('valid',null);
+        $form = new AgendamentoForm($this->getEntityManager(),true);
         
+        $data = $request->getPost();
+        $agendamentoModel = new AgendamentoModel($this->getEntityManager()); 
+        $agendamento = $agendamentoModel->setAgendamento($data['idAgendamento']);
+        $form->get('nomeCliente')->setValue($agendamento->getNomeCliente());
+        $form->get('dataInicial')->setValue($agendamento->getDataInicial()->format('Y-m-d H:i'));
+        $form->get('dataFinal')->setValue($agendamento->getDataFinal()->format('Y-m-d H:i'));
+        
+        if($isValid){
+            if($form->isValid()){
+                     $agendamentoModel->edit($data);
+                     $success = "Data Atualizada com Sucesso";
+            }
+        }
+        
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true)->setVariables(array('formAgendamento' => $form,'success' => $success));
+        return $viewModel;
     }
     
-    public function calendarAction(){
+    
+    public function getAgendamentosAction(){
         $data = array();
-                
         
-        return new \Zend\View\Model\JsonModel($data);
+        $agendamentoModel = new AgendamentoModel($this->getEntityManager());
+        $agendamentos = $agendamentoModel->getAgendamentos();
+       
+        $i = 0;
+        foreach ($agendamentos as $agendamento) {
+            $data[$i]['id'] = $agendamento['idAgendamento'];
+            $data[$i]['title'] = $agendamento['nomeCliente'];
+            $data[$i]['start'] = $agendamento['dataInicial']->format('Y-m-d h:i');
+            $data[$i]['end'] = $agendamento['dataFinal']->format('Y-m-d h:i');
+            $i++;
+        }
+        
+        return new JsonModel($data);
 
     }
 }
+ 

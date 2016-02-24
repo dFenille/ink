@@ -52,15 +52,16 @@ return array(
                     ),
                 ),
             ),
-//            'agendamento' => array(
-//                'type'      => 'Literal',
-//                'options'   => array(
-//                    'route'     => '/agendamento[/:action[/:id]]',
-//                    'defaults'  => array(
-//                        'controller' =>
-//                    )
-//                )
-//            )
+            'agendamento' => array(
+                'type'      => 'segment',
+                'options'   => array(
+                    'route'     => '/agendamento[/:action[/:id]]',
+                    'defaults'  => array(
+                        'controller' =>'Application\Controller\Agendamento',
+                        'action'     => 'create'
+                    )
+                )
+            )
         ),
     ),
     'service_manager' => array(
@@ -84,10 +85,27 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Agendamento' => 'Application\Controller\AgendamentoController'
+            
         ),
     ),
+    'view_helper_config' => array(
+        'flashmessenger' => array(
+            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
+            'message_close_string'     => '</li></ul></div>',
+            'message_separator_string' => '</li><li>'
+        ),
+        'formElementErrors' => array(
+            'message_open_format' => '<p class="text-danger">',
+            'message_separator_string' => '<br>',
+            'message_close_string' => '</p>',
+        )
+    ),
     'view_manager' => array(
+        'strategies' =>array(
+                'ViewJsonStrategy'
+        ),
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',

@@ -23,6 +23,25 @@ class AgendamentoController extends AbstractAppController {
         return new ViewModel();
     }
     
+    public function agendamentoAjaxAction(){
+        $request = $this->getRequest();
+        $form = new AgendamentoForm($this->getEntityManager());
+        $success = false;
+        if($request->isPost()){
+            $data = $request->getPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $agendamentoModel = new AgendamentoModel($this->getEntityManager());
+                $agendamentoModel->add($data);
+                $success = true;
+            }
+        }
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true)->setVariables(array('success'=>$success,'formAgendamento'=>$form));
+        return $viewModel;
+        
+    }
+    
     public function createAction(){
         $request = $this->getRequest();
         $form = new AgendamentoForm($this->getEntityManager());
@@ -82,6 +101,15 @@ class AgendamentoController extends AbstractAppController {
         
         return new JsonModel($data);
 
+    }
+    
+    
+    public function calendarAction(){
+        
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+        return $viewModel;
+        
     }
 }
  

@@ -16,6 +16,8 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+        $this->initTranslate($e);
+        
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -35,5 +37,14 @@ class Module
                 ),
             ),
         );
+    }
+    
+    public function initTranslate($e){
+        
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $translator = $serviceManager->get('MvcTranslator');
+        $translator->addTranslationFile ( 'phpArray', './vendor/zendframework/zendframework/resources/languages/pt_BR/Zend_Validate.php' );
+        
+        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
     }
 }

@@ -54,7 +54,7 @@ class CaixaForm extends Form implements InputFilterProviderInterface {
            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
            'options' => array(
                 'object_manager'     => $this->entityManager,
-                'target_class'       => 'Application\Entity\tabTipoCaixa',
+                'target_class'       => 'Application\Entity\TabTipoCaixa',
                 'property' => 'tipoCaixa',
                 'is_method' => true,
             ), 

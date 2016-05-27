@@ -61,6 +61,16 @@ return array(
                         'action'     => 'create'
                     )
                 )
+            ),
+            'caixa' => array(
+                'type'      => 'segment',
+                'options'   => array(
+                    'route'     => '/caixa[/:action[/:id]]',
+                    'defaults'  => array(
+                        'controller' =>'Application\Controller\Caixa',
+                        'action'     => 'index'
+                    )
+                )
             )
         ),
     ),
@@ -86,7 +96,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Agendamento' => 'Application\Controller\AgendamentoController'
+            'Application\Controller\Agendamento' => 'Application\Controller\AgendamentoController',
+            'Application\Controller\Caixa' => 'Application\Controller\CaixaController',
             
         ),
     ),

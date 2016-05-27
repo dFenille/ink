@@ -1,0 +1,80 @@
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('assets/global/plugins/clockface/css/clockface.css') ?>" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="<?php echo $this->url(); ?>">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Agendamento</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span><b>Criar</b></span>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> Caixa
+    <small>Criar</small>
+</h3>
+
+<?php
+$this->formElementErrors()
+        ->setMessageOpenFormat('<p class="text-danger">')
+        ->setMessageSeparatorString('</br>')
+        ->setMessageCloseString('</p>')
+        ->render($form);
+?>
+<div clas="row">
+    <div class="col-md-6">
+        <?php if ($success): ?>
+            <div class="alert alert-success">
+                <strong>Sucesso!</strong> Despesa/Beneficio criado com sucesso. 
+            </div>
+        <?php endif; ?>
+
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <form method="post" action="">
+                    <div class="form-body">
+                        <label>Nome do Custo/Beneficio</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </span>
+                            <?php echo $this->formRow($form->get('caixa')) ?>
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Valor</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </span>
+                                        <?php echo $this->formRow($form->get('valor')) ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <label>Tipo Caixa</label>
+                                        <?php echo $this->formRow($form->get('tipoCaixa')) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <?php echo $this->formRow($form->get('submit')) ?>
+                            <button type="button" class="btn default">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

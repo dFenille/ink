@@ -61,25 +61,26 @@ class AgendamentoController extends AbstractAppController {
     public function editAction(){
         $success = false;
         $request = $this->getRequest();
-        $valid = $this->params()->fromQuery('valid',null);
         $form = new AgendamentoForm($this->getEntityManager(),true);
         
         $data = $request->getPost();
+        $dataGet = $request->getQuery();
+        
+        
         $agendamentoModel = new AgendamentoModel($this->getEntityManager()); 
         $agendamento = $agendamentoModel->setAgendamento($data['idAgendamento']);
         $form->get('nomeCliente')->setValue($agendamento->getNomeCliente());
         $form->get('dataInicial')->setValue($agendamento->getDataInicial()->format('Y-m-d H:i'));
         $form->get('dataFinal')->setValue($agendamento->getDataFinal()->format('Y-m-d H:i'));
         
-        if($isValid){
-            if($form->isValid()){
-                     $agendamentoModel->edit($data);
-                     $success = "Data Atualizada com Sucesso";
-            }
-        }
+        $form->setData($data);
+//        if($form->isValid()){
+//                 $agendamentoModel->edit($data);
+//                 $success = "Data Atualizada com Sucesso";
+//        }
         
         $viewModel = new ViewModel();
-        $viewModel->setTerminal(true)->setVariables(array('formAgendamento' => $form,'success' => $success));
+        $viewModel->setTerminal(true)->setVariables(array('formAgendamento' => $form,'success' => $success,'idAgendamento'=>$data['idAgendamento']));
         return $viewModel;
     }
     

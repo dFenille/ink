@@ -22,6 +22,13 @@ class AgendamentoModel {
      * @var \Doctrine\ORM\EntityManager
      *      */
     protected $entityManager;
+    
+    /**
+
+     * @var Agenda
+     *      */
+    public $agendamento;
+    
     public function __construct(EntityManager $entityManager) {
         $this->entityManager = $entityManager;  
     }
@@ -42,14 +49,41 @@ class AgendamentoModel {
         $this->agendamento->setDataFinal(new DateTime($post['dataFinal']));
         $this->agendamento->setStatus(1);
         
+        $this->entityManager->getConnection()->beginTransaction();
         try{
             $this->entityManager->persist($this->agendamento);
             $this->entityManager->flush();
+            $this->entityManager->getConnection()->commit();
                     
         }  catch (\Exception $e){
+            $this->entityManager->getConnection()->rollBack();
             throw new \Exception('Não foi possivel adicionar um novo agendamento.'.$e->getMessage());
         }
         return $this->agendamento;
+    }
+    
+    public function edit($post){
+        
+        $this->setAgendamento($post['idAgendamento']);
+        $this->agendamento->setNomeCliente($post['nomeCliente'])
+                          ->setDataFinal($post['dataFinal'])
+                          ->setDataInicial($post['dataInicial']);
+        
+        
+        $this->entityManager->getConnection()->beginTransaction();
+        
+        try{
+            $this->entityManager->persist($this->agendamento);
+            $this->entityManager->flush();
+            $this->entityManager->getConnection()->commit();
+                    
+        }  catch (\Exception $e){
+            $this->entityManager->getConnection()->rollBack();
+           echo $e->getMessage();
+        }
+        
+        return $this->agendamento;
+                          
     }
     
     public function getAgendamento(){

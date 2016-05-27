@@ -467,37 +467,18 @@
                         <li class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class=" icon-wrench"></i>
-                                <span class="title"><?php echo $this->translate('Despesas')?></span>
+                                <span class="title"><?php echo $this->translate('Caixa')?></span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a href="<?php // echo $this->url('admin/subgroup')?>" class="nav-link ">
+                                    <a href="<?php  echo $this->url('caixa')?>" class="nav-link ">
                                         <span class="title"><?php  echo $this->translate("Listar")?></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php // echo $this->url('admin/subgroup',array('action'=>'create'))?>" class="nav-link ">
-                                        <span class="title"><?php  echo $this->translate("Criar despesas")?></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class=" icon-user"></i>
-                                <span class="title"><?php  echo $this->translate('Caixa')?></span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item">
-                                    <a href="<?php // echo $this->url('admin/user')?>" class="nav-link ">
-                                        <span class="title"><?php  echo $this->translate("Listar")?></span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?php // echo $this->url('admin/user',array('action'=>'create'))?>" class="nav-link ">
-                                        <span class="title"><?php  echo $this->translate("Criar Credito")?></span>
+                                    <a href="<?php  echo $this->url('caixa',array('action'=>'create'))?>" class="nav-link ">
+                                        <span class="title"><?php  echo $this->translate("Criar ")?></span>
                                     </a>
                                 </li>
                             </ul>

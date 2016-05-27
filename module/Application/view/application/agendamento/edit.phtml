@@ -1,7 +1,7 @@
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo $this->basePath('assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo $this->basePath('assets/global/plugins/clockface/css/clockface.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('public/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('public/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->basePath('public/assets/global/plugins/clockface/css/clockface.css') ?>" rel="stylesheet" type="text/css" />
 <!-- END PAGE LEVEL PLUGINS -->
 
 <?php
@@ -11,10 +11,10 @@ $this->formElementErrors()
         ->setMessageCloseString('</p>')
         ->render($formAgendamento);
 ?>
-<form method="post" action="">
+<form method="post" action="javascript:void(0);" id="form-edit">
     <div class="modal-body">
-        <div clas="row">
-            <div class="col-md-8 col-md-offset-2" style="float: none;">
+        <!--<div clas="row">-->
+            <!--<div class="col-md-8 col-md-offset-2" style="float: none;">-->
                 <?php if ($success): ?>
                     <div class="alert alert-success">
                         <strong>Sucesso!</strong> Agendamento criado com sucesso. 
@@ -56,20 +56,43 @@ $this->formElementErrors()
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+<!--            </div>
+        </div>-->
     </div>
     <div class="modal-footer">
-        <?php echo $this->formRow($formAgendamento->get('submit')) ?>
-        <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+        <input type="hidden" name="idAgendamento" value="<?php echo $idAgendamento?>">
+        <input type="hidden" name="valid" value="1">
+        <?php // echo $this->formRow($formAgendamento->get('submit')) ?>
+        <button type="button" data-dismiss="modal" class="btn btn-danger">Fechar</button>
     </div>
 </form>
 
+<script> 
+        $('#submit-agendamento').on('click',function(e){
+            e.preventDefault();
+             $.ajax({
+                method: "POST",
+                url: "<?php echo $this->url('agendamento',array('action'=> 'edit'))?>",
+                data: 'idAgendamento='+$('input[name=idAgendamento]').val()+'&nomeCliente='+$('input[name=nomeCliente]').val()+'&dataInicial='+$('input[name=dataInicial]').val()+'&dataFinal='+$('input[name=dataFinal]').val(),
+                success: function(result){
+                    $('#modal-edit').html(result);
+                    $('#modal').modal('hide');
+                    loadCalendar();
+                },
+                error: function(result){
+                    console.log(result);
+                }        
+              })
+           
+        })
+
+</script>
+
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="<?php echo $this->basePath('assets/global/plugins/bootstrap-daterangepicker/moment.min.js') ?>" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('assets/global/plugins/clockface/js/clockface.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/assets/global/plugins/bootstrap-daterangepicker/moment.min.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/assets/global/plugins/clockface/js/clockface.js'); ?>" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="<?php echo $this->basePath('assets/pages/scripts/components-date-time-pickers.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/assets/pages/scripts/components-date-time-pickers.min.js'); ?>" type="text/javascript"></script>

@@ -29,9 +29,9 @@ class Caixa
     private $caixa;
 
     /**
-     * @var float
+     * @var string
      *
-     * @ORM\Column(name="valor", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="valor", type="string", length=100, nullable=false)
      */
     private $valor;
 
@@ -81,7 +81,7 @@ class Caixa
     /**
      * Set valor
      *
-     * @param float $valor
+     * @param string $valor
      *
      * @return Caixa
      */
@@ -95,7 +95,7 @@ class Caixa
     /**
      * Get valor
      *
-     * @return float
+     * @return string
      */
     public function getValor()
     {

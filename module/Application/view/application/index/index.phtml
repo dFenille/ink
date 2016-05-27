@@ -26,12 +26,12 @@
     </div>
 </div>
 
-<div id="modal" class="modal container fade" tabindex="-1">
+<div id="modal" class="modal fade" tabindex="-1">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Agendamento</h4>
     </div>
-    <div id="modal-body">
+    <div id="modal-edit">
     </div>
 </div>
 <div id="modal-agendamento" class="modal fade" tabindex="-1">
@@ -40,8 +40,6 @@
         <h4 class="modal-title">Agendamento</h4>
     </div>
     <div class="modal-body" id="agendamento">
-        
-        
     </div>
 </div>
 
@@ -198,14 +196,16 @@ var AppCalendar = function() {
                     }
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-
-                    
+                     var a = '<div class="center-align" style="margin: 10px 10px 10px 240px;">'+
+                             '<img src="<?php echo $this->basePath('public/assets/global/img/loading-spinner-grey.gif')?>" class="loading">'+
+                             '</div>';
+                   $('#modal-edit').html(a); 
                    $.ajax({
                             method: "POST",
                             url: "<?php echo $this->url('agendamento',array('action'=> 'edit'))?>",
                             data:'idAgendamento='+calEvent.id ,
                             success: function(result){
-                                $('#modal-body').html(result);
+                                $('#modal-edit').html(result);
                             }
                           })
                    $('#modal').modal();

@@ -52,6 +52,7 @@ class CaixaModel {
         $this->caixa->setCaixa($post['caixa']);
         $this->caixa->setValor($post['valor']);
         $this->caixa->setTipoCaixa($post['tipoCaixa']);
+        $this->caixa->setMes($post['mes']);
         
         $this->entityManager->getConnection()->beginTransaction();
         try{
@@ -67,11 +68,11 @@ class CaixaModel {
     }
     
     public function edit($post){
-        var_dump($this->caixa->getIdCaixa());
         
         $this->caixa->setCaixa($post['caixa']);
-        $this->caixa->setTipoCaixa($post['tipoCaixa']);
         $this->caixa->setValor($post['valor']);
+        $this->caixa->setTipoCaixa($post['tipoCaixa']);
+        $this->caixa->setMes($post['mes']);
         
         $this->entityManager->getConnection()->beginTransaction();
         
@@ -85,15 +86,17 @@ class CaixaModel {
            throw new \Exceptipon($e->getMessage()) ;
         }
         
-        return $this->caixa;
+        return $this;
                           
     }
     
     
-    public function getCaixas(){
+    public function getCaixas($mes){
         $query = $this->entityManager->createQueryBuilder();
-        $query->select('agenda')
-                ->from('Application\Entity\Caixa', 'caixas');
+        $query->select('caixas')
+                ->from('Application\Entity\Caixa', 'caixas')
+                ->where('caixas.mes = :idMes')->setParameter('idMes', $mes)
+                ->orderBy('caixas.valor','DESC');
         
         $caixas = $query->getQuery()->getArrayResult();
         

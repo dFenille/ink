@@ -64,6 +64,31 @@ class CaixaForm extends Form implements InputFilterProviderInterface {
         ));
         
         $this->add(array(
+             'type' => 'Zend\Form\Element\Select',
+             'name' => 'mes',
+             'options' => array(
+                     'value_options' => array(
+                             '1' => 'Janeiro',
+                             '2' => 'Fevereiro',
+                             '3' => 'Março',
+                             '4' => 'Abril',
+                             '5' => 'Maio',
+                             '6' => 'Junho',
+                             '7' => 'Julho',
+                             '8' => 'Agosto',
+                             '9' => 'Setembro',
+                             '10' => 'Outubro',
+                             '11' => 'Novembro',
+                             '12' => 'Dezembro',
+                         
+                     ),
+             ),
+            'attributes' => array(
+                'class' => 'form-control',
+            )
+     ));
+        
+        $this->add(array(
             'name' => 'submit',
             'type' => 'submit',
             'attributes' => array(

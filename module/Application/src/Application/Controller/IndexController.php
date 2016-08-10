@@ -15,7 +15,13 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
     public function indexAction()
-    {
+    {   
         return new ViewModel();
     }
+    
+    public function loginAction()
+    {   
+        $this->layout('layout/layout-login.phtml');
+        return new ViewModel();
+    }   
 }

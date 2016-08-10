@@ -71,7 +71,17 @@ return array(
                         'action'     => 'index'
                     )
                 )
-            )
+            ),
+            'login' => array(
+                'type'      => 'segment',
+                'options'   => array(
+                    'route'     => '/login',
+                    'defaults'  => array(
+                        'controller' =>'Application\Controller\Index',
+                        'action'     => 'login'
+                    )
+                )
+            ),
         ),
     ),
     'service_manager' => array(
@@ -157,6 +167,19 @@ return array(
                       'Application\Entity' => 'application_entities'
                   )
               )
-          )
+          ),
+         'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'Application\Entity\Usuario',
+                'identity_property' => 'usuario',
+                'credential_property' => 'senha',
+                'credential_callable' => function(Entity\Usuario $user, $passwordGiven) {
+                    return my_awesome_check_test($user->getSenha(), $passwordGiven);
+                },
+            ),
+         ),
       ),
 );
+
+

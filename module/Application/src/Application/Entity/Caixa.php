@@ -42,6 +42,13 @@ class Caixa
      */
     private $tipoCaixa;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mes", type="integer", nullable=false)
+     */
+    private $mes;
+
 
 
     /**
@@ -124,5 +131,29 @@ class Caixa
     public function getTipoCaixa()
     {
         return $this->tipoCaixa;
+    }
+
+    /**
+     * Set mes
+     *
+     * @param integer $mes
+     *
+     * @return Caixa
+     */
+    public function setMes($mes)
+    {
+        $this->mes = $mes;
+
+        return $this;
+    }
+
+    /**
+     * Get mes
+     *
+     * @return integer
+     */
+    public function getMes()
+    {
+        return $this->mes;
     }
 }

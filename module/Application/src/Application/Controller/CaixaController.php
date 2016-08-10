@@ -18,12 +18,28 @@ use Application\Form\CaixaForm;
  */
 class CaixaController extends AbstractAppController {
     
-    public function indexAction() {
+    public function indexAction()
+    {
         
-        return new ViewModel();
+        $caixaModel = new \Application\Model\CaixaModel($this->getEntityManager());
+        $caixas = $caixaModel->getCaixas(date('m'));
+        return new ViewModel(array('caixas'=>$caixas));
     }
     
-    public function createAction(){
+    
+    public function filtroCaixaAction()
+    {   
+        $request = $this->getRequest();
+        $data = $request->getPost();
+        $caixaModel = new \Application\Model\CaixaModel($this->getEntityManager());
+        $caixas = $caixaModel->getCaixas($data['mes-filtro']);
+        
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true)->setVariables(array('caixas' => $caixas));
+        return $viewModel;
+    }
+    public function createAction()
+    {
         $request = $this->getRequest();
         $form = new CaixaForm($this->getEntityManager());
         $success = false;
@@ -33,6 +49,7 @@ class CaixaController extends AbstractAppController {
             if($form->isValid()){
                 $caixaModel = new \Application\Model\CaixaModel($this->getEntityManager());
                 $caixaModel->add($data);
+                $this->redirect()->toRoute('caixa',array('action'=>'edit','id'=>$caixaModel->getCaixaObject()->getIdCaixa()));
                 $success = true;
             }
         }

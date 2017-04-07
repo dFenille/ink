@@ -1,0 +1,40 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TabStatusProduto
+ *
+ * @ORM\Table(name="tab_status_produto")
+ * @ORM\Entity
+ */
+class TabStatusProduto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_status_produto", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idStatusProduto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status_produto", type="string", length=15, nullable=false)
+     */
+    private $statusProduto;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="flg_ativo", type="integer", nullable=false)
+     */
+    private $flgAtivo = '1';
+
+
+}
+

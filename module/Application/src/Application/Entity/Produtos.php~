@@ -1,0 +1,54 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Produtos
+ *
+ * @ORM\Table(name="produtos", indexes={@ORM\Index(name="fk_prod_status", columns={"status"})})
+ * @ORM\Entity
+ */
+class Produtos
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_produto", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idProduto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome_produto", type="string", length=255, nullable=false)
+     */
+    private $nomeProduto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc_produto", type="string", length=255, nullable=false)
+     */
+    private $descProduto;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="quantidade_produto", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $quantidadeProduto;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status = '1';
+
+
+}
+

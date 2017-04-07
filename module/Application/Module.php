@@ -56,34 +56,34 @@ class Module
             $params = $match->getParams();
             $module = explode('/',$route);
             
-             if( @$module[0] == 'login'){
-                    if ($auth->hasIdentity()) {
-                        $router = $e->getRouter();
-                        $url = $router->assemble(array(), array(
-                            'name' => 'messages'
-                        ));
+            //  if( @$module[0] == 'login'){
+            //         if ($auth->hasIdentity()) {
+            //             $router = $e->getRouter();
+            //             $url = $router->assemble(array(), array(
+            //                 'name' => 'messages'
+            //             ));
                         
-                        $response = $e->getResponse();
-                        $response->getHeaders()->addHeaderLine('Location', $url);
-                        $response->setStatusCode(302);
+            //             $response = $e->getResponse();
+            //             $response->getHeaders()->addHeaderLine('Location', $url);
+            //             $response->setStatusCode(302);
                         
-                        return $response;
-                    }else{
-                        return;
-                    }
-                }
-            if ($auth->hasIdentity()) {
-                return;
-            }else{
-                $router = $e->getRouter();
-                $url = $router->assemble(array(), array(
-                    'name' => 'login'
-                ));
+            //             return $response;
+            //         }else{
+            //             return;
+            //         }
+            //     }
+            // if ($auth->hasIdentity()) {
+            //     return;
+            // }else{
+            //     $router = $e->getRouter();
+            //     $url = $router->assemble(array(), array(
+            //         'name' => 'login'
+            //     ));
 
-                $response = $e->getResponse();
-                $response->getHeaders()->addHeaderLine('Location', $url);
-                $response->setStatusCode(302);
-            }
+            //     $response = $e->getResponse();
+            //     $response->getHeaders()->addHeaderLine('Location', $url);
+            //     $response->setStatusCode(302);
+            // }
             
             
 //             if(@$module[0] == 'api' ||  $route == 'admin/day-notification' || $route == 'swagger-ui' || $route ==  'swagger-resource-detail' || $route ==  'swagger-resources'){

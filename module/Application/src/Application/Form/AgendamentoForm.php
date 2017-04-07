@@ -33,6 +33,13 @@ class AgendamentoForm extends Form implements InputFilterProviderInterface {
             )
         ));
         $this->add(array(
+            'name' => 'valor',
+            'type' => 'text',
+            'attributes' => array(
+                'class' => 'form-control'
+            )
+        ));
+        $this->add(array(
             'name' => 'dataInicial',
             'type' => 'text',
             'attributes' => array(

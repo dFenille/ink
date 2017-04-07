@@ -70,6 +70,7 @@ class AgendamentoController extends AbstractAppController {
         $agendamentoModel = new AgendamentoModel($this->getEntityManager()); 
         $agendamento = $agendamentoModel->setAgendamento($data['idAgendamento']);
         $form->get('nomeCliente')->setValue($agendamento->getNomeCliente());
+        $form->get('valor')->setValue($agendamento->getValor());
         $form->get('dataInicial')->setValue($agendamento->getDataInicial()->format('Y-m-d H:i'));
         $form->get('dataFinal')->setValue($agendamento->getDataFinal()->format('Y-m-d H:i'));
         
@@ -95,6 +96,7 @@ class AgendamentoController extends AbstractAppController {
         foreach ($agendamentos as $agendamento) {
             $data[$i]['id'] = $agendamento['idAgendamento'];
             $data[$i]['title'] = $agendamento['nomeCliente'];
+            $data[$i]['valor'] = $agendamento['valor'];
             $data[$i]['start'] = $agendamento['dataInicial']->format('Y-m-d h:i');
             $data[$i]['end'] = $agendamento['dataFinal']->format('Y-m-d h:i');
             $i++;

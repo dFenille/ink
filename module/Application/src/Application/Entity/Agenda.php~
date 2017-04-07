@@ -1,0 +1,61 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Agenda
+ *
+ * @ORM\Table(name="agenda")
+ * @ORM\Entity
+ */
+class Agenda
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_agendamento", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idAgendamento;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_inicial", type="datetime", nullable=false)
+     */
+    private $dataInicial;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_final", type="datetime", nullable=false)
+     */
+    private $dataFinal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome_cliente", type="string", length=60, nullable=false)
+     */
+    private $nomeCliente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valor", type="string", length=45, nullable=true)
+     */
+    private $valor = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status = '1';
+
+
+}
+

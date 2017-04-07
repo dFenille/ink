@@ -12,36 +12,36 @@
 
         <!-- Le styles -->
         <?php  echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/public/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/layouts/layout/css/custom.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/layouts/layout/css/themes/darkblue.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/layouts/layout/css/layout.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/css/plugins.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/css/components.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/plugins/uniform/css/uniform.default.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/plugins/bootstrap/css/bootstrap.min.css')                        
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css')
-                        ->prependStylesheet($this->basePath() . '/public/assets/global/plugins/font-awesome/css/font-awesome.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/custom.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/themes/darkblue.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/layouts/layout/css/layout.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/css/plugins.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/css/components.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/uniform/css/uniform.default.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/bootstrap/css/bootstrap.min.css')                        
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/simple-line-icons/simple-line-icons.min.css')
+                        ->prependStylesheet($this->basePath() . '/assets/global/plugins/font-awesome/css/font-awesome.min.css')
                         //->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all')
         ?>
 
         <!-- Scripts -->
         <?php  echo $this->headScript()
             
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/bootstrap/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/js.cookie.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/jquery.blockui.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/uniform/jquery.uniform.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')
-            ->prependFile($this->basePath() . '/public/assets/pages/scripts/form-samples.min.js')
-            ->prependFile($this->basePath() . '/public/assets/layouts/layout/scripts/layout.min.js')
-            ->prependFile($this->basePath() . '/public/assets/layouts/layout/scripts/demo.min.js')
-            ->prependFile($this->basePath() . '/public/assets/layouts/global/scripts/quick-sidebar.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/scripts/app.min.js')
-            ->prependFile($this->basePath() . '/public/assets/global/plugins/jquery.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/js.cookie.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery.blockui.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/uniform/jquery.uniform.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')
+            ->prependFile($this->basePath() . '/assets/pages/scripts/form-samples.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/layout/scripts/layout.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/layout/scripts/demo.min.js')
+            ->prependFile($this->basePath() . '/assets/layouts/global/scripts/quick-sidebar.min.js')
+            ->prependFile($this->basePath() . '/assets/global/scripts/app.min.js')
+            ->prependFile($this->basePath() . '/assets/global/plugins/jquery.min.js')
         ; ?>
     </head>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -52,7 +52,7 @@
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="<?php  echo $this->url('home')?>" style="color: white">
-                        <img src="<?php echo $this->basePath('public/img/logo.png') ?>" class="img-responsive">
+                        <img src="<?php echo $this->basePath('img/logo.png') ?>" class="img-responsive">
                     </a>
                     <div class="menu-toggler sidebar-toggler"> </div>
                 </div>

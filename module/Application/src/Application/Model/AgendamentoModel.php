@@ -24,7 +24,6 @@ class AgendamentoModel {
     protected $entityManager;
     
     /**
-
      * @var Agenda
      *      */
     public $agendamento;
@@ -45,6 +44,7 @@ class AgendamentoModel {
     public function add($post){
         $this->agendamento = new Agenda();
         $this->agendamento->setNomeCliente($post['nomeCliente']);
+        $this->agendamento->setValor($post['valor']);
         $this->agendamento->setDataInicial(new DateTime($post['dataInicial']));
         $this->agendamento->setDataFinal(new DateTime($post['dataFinal']));
         $this->agendamento->setStatus(1);
@@ -66,6 +66,7 @@ class AgendamentoModel {
         
         $this->setAgendamento($post['idAgendamento']);
         $this->agendamento->setNomeCliente($post['nomeCliente'])
+                          ->setValor($post['valor'])
                           ->setDataFinal($post['dataFinal'])
                           ->setDataInicial($post['dataInicial']);
         

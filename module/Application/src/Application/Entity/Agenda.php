@@ -43,6 +43,13 @@ class Agenda
     private $nomeCliente;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="valor", type="string", length=45, nullable=true)
+     */
+    private $valor = '0';
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
@@ -131,6 +138,30 @@ class Agenda
     public function getNomeCliente()
     {
         return $this->nomeCliente;
+    }
+
+    /**
+     * Set valor
+     *
+     * @param string $valor
+     *
+     * @return Agenda
+     */
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+
+        return $this;
+    }
+
+    /**
+     * Get valor
+     *
+     * @return string
+     */
+    public function getValor()
+    {
+        return $this->valor;
     }
 
     /**
